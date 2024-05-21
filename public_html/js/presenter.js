@@ -18,7 +18,13 @@ function resetState() {
         commentInfoUpdate: true
     }
 }
-
+async function updatePage() {
+    console.log("Presenter: Aufruf von updatePage()");
+    // Nutzer abfragen und Anzeigenamen als owner setzen
+    let self = await model.getSelf();
+    state.owner = self.displayName;
+    console.log(`Presenter: Nutzer*in ${state.owner} hat sich angemeldet.`);
+}
 let loginPage = function () {
     console.log("Presenter: Aufruf von loginPage()");
     if (state.owner !== null)

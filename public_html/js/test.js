@@ -1,5 +1,6 @@
 "use strict";
-
+import * as router from './router.js';
+import * as model from './model.js';
 //// Fragt den Nutzer nach seinem Namen
 //let userName = prompt("Wie heißt du?");
 //

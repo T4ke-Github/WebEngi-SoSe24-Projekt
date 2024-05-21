@@ -28,35 +28,23 @@ function formatDate(date, long) {
         minute: "2-digit",
       }
     : { year: "numeric", month: "2-digit", day: "2-digit" };
+
 }
 
-class Blog {
-  constructor(
-    blog_id,
-    name,
-    post_count,
-    creation_date,
-    last_modified_date,
-    google_url
-  ) {
-    this.blog_id = blog_id;
-    this.name = name;
-    this.post_count = post_count;
-    this.creation_date = creation_date;
-    this.last_modified_date = last_modified_date;
-    this.google_url = google_url;
+function Blog(blog_id, blogName, post_count, creation_date, last_modified_date, google_url) {
+  this.blog_id = blog_id;
+  this.blogName = blogName;
+  this.post_count = post_count;
+  this.creation_date = creation_date;
+  this.last_modified_date = last_modified_date;
+  this.google_url = google_url;
   }
-}
-class Post {
-  constructor(
-    post_id,
-    blog_id,
-    title,
-    creation_date,
-    last_modified_date,
-    content,
-    comment_count
-  ) {
+
+// test Blog constructor
+let blogTest = new Blog(1, "Mein Blog", 10, new Date(), new Date(), "https://meinblog.de");
+console.log(blogTest);
+
+function Post(post_id, blog_id, title, creation_date, last_modified_date, content, comment_count) {
     this.post_id = post_id;
     this.blog_id = blog_id;
     this.title = title;
@@ -64,18 +52,15 @@ class Post {
     this.last_modified_date = last_modified_date;
     this.content = content;
     this.comment_count = comment_count;
-  }
+
 }
-class Comment {
-  constructor(
-    comment_id,
-    blog_id,
-    post_id,
-    author,
-    creation_date,
-    last_modified_date,
-    content
-  ) {
+
+// test Post
+// let postTest = new Post(1,2,"Mein Blog", new Date(), new Date(),"adsfgsfh",5);
+// console.log(postTest);
+
+
+function Comment(comment_id, blog_id, post_id, author, creation_date, last_modified_date, content) { 
     this.comment_id = comment_id;
     this.blog_id = blog_id;
     this.post_id = post_id;
@@ -84,7 +69,24 @@ class Comment {
     this.last_modified_date = last_modified_date;
     this.content = content;
   }
-}
+  // Setze Methode setFormatDates für den Blog-Prototyp
+  Blog.prototype.setFormatDates = function (long) {
+    this.creation_date_formatted = formatDate(this.creation_date, long);
+    this.last_modified_date_formatted = formatDate(this.last_modified_date, long);
+  };
+  
+  // Setze Methode setFormatDates für den Post-Prototyp
+  Post.prototype.setFormatDates = function (long) {
+    this.creation_date_formatted = formatDate(this.creation_date, long);
+    this.last_modified_date_formatted = formatDate(this.last_modified_date, long);
+  };
+  
+  // Setze Methode setFormatDates für den Comment-Prototyp
+  Comment.prototype.setFormatDates = function (long) {
+    this.creation_date_formatted = formatDate(this.creation_date, long);
+    this.last_modified_date_formatted = formatDate(this.last_modified_date, long);
+  };
+
 // Öffentliche Schnittstelle von Model
 
 // Wird nach Login (which = true)/Logout (which = false) aufgerufen.
