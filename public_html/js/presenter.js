@@ -7,25 +7,17 @@ let state = {};
 resetState();
 
 function resetState() {
-    state = {
-        init: true,
+    state = {   
         blogId: -1,
         postId: -1,
         owner: null,
-        detail: false
-    };
+        detail: false,
+        init: true,
+        navSlotUpdate: true,
+        selectionUpdate: true,
+        commentInfoUpdate: true
+    }
 }
-
-
-// Aktualisiert die allgemeinen Elemente der Seite
-async function updatePage() {
-    console.log("Presenter: Aufruf von updatePage()");
-    // Nutzer abfragen und Anzeigenamen als owner setzen
-    let self = await model.getSelf();
-    state.owner = self.displayName;
-    console.log(`Presenter: Nutzer*in ${state.owner} hat sich angemeldet.`);
-}
-
 
 let loginPage = function () {
     console.log("Presenter: Aufruf von loginPage()");
