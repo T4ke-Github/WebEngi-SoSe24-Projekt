@@ -16,10 +16,126 @@
     </head>
     <body>
         <header>
-            <h1>BLOGGER</h1>
-            <button id="sign-in-or-out-button">Anmelden</button>
-            <div id="auth-status"></div><hr>
+            <h1>BLOGGER APP</h1>
+            <nav id="nav_slot">
+                <button id="sign-in-or-out-button">Anmelden</button>
+                <div id="auth-status"></div>
+                <hr>
+                <div id="info_box"></div>
+            </nav>
         </header>
-        <main>Test Login Page</main>
+
+        <hr>
+        <main id="main-content_slot">
+            Test Page
+        </main>
+        <hr>
+
+        <footer>Impressum</footer>
+
+        <div id="templates" hidden>
+
+            <ul class="nav" id="nav">
+                <li data-id="%id%" data-action = "showOverview">
+                    %Blogg%
+                </li>
+            </ul>
+
+            <div id="info_box">
+                <h2>Blogg Info</h2>
+                <p>Title: %title%</p>
+                <p>Posts: %posts%</p>
+                <p>Erscheinungsdatum: %releaseDate%</p>
+                <p>Letzte Änderung: %updateDate%</p>
+                <p>Kommentare: %comments%</p>
+                <a href="blogger.com">Zu Blogger.com</a>
+            </div>
+
+            <div id="blogg_list">
+                <h3>Blogg Liste</h3>
+                <ul>
+                    <li data-id="%id%" data-action="showDetail">
+                        <div class = "inline">
+                            <p> %Blogg% </p>
+                            <nav>
+                            </nav>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="blogg_overview">
+                <h3>%bloggName%</h3>
+                <button type="button" data-action="showAdd"> 
+                    Post hinzufügen 
+                </button>
+                <ul>
+                    <li data-id="%id%" data-action="showDetail">
+                        <div class = "inline">
+                            <nav>
+                                <button type="button" data-action="showEdit"> 
+                                    Post editieren 
+                                </button>
+
+                                <button type="button" data-action="delete"> 
+                                    Post löschen 
+                                </button>
+                            </nav>
+                            <p>%postName%</p>
+                            <p>%postImage%</p>
+                            <p>Erscheinungsdatum: %releaseDate%</p>
+                            <p>Letzte Änderung: %updateDate%</p>
+                            <p>Kommentare: %comments%</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="post_detail">
+                <nav>
+                    <ul id="buttons">
+                        <li data-path="/edit/%abtId%/%id%">
+                          <button><img class="icon" src="/img/edit.svg" alt="Edit" /></button>
+                        </li>
+                        <li data-id="%id%" data-action="deleteM">
+                          <button><img class="icon" src="/img/garbage.svg" alt="Delete" /></button>
+                        </li>
+                        <li data-action="back">
+                            <button><img class="icon" src="/img/arrow.svg" alt="Back" /></button>
+                          </li>
+                    </ul>
+                </nav>
+                <h3>%postTitle%</h3>
+                <p>Erscheinungsdatum: %releaseDate%</p>
+                <p>Letzte Änderung: %updateDate%</p>
+                <section>
+                    <img class="blog_picture" src= " %imageURL% " />
+                  <div>
+                    <p>
+                        %postContent%
+                    </p>
+                  </div>
+                </section>
+
+                <hr>
+
+                <h2>Kommentare: %commentNumber%</h2>
+                <article id="blog_comments">
+                    <nav>
+                        <button> <img class="icon" src="/img/garbage.svg" alt="Delete Comment" /></button>
+                    </nav>
+                    <div>
+                        <h3>%commentName%</h3>
+                        <p>Datum: %commentDate%</p>
+                    </div>
+                  <div>
+                      <section>Sehr interessant, danke!</section>
+                  </div>
+                </article>
+
+            </div>
+
+        </div>
+
     </body>
 </html>
