@@ -21,8 +21,15 @@
             <div id="auth-status"></div>
             <nav>
             </nav>
-            <hr>
-            <div id="info_box"></div>
+
+            <hr/>
+
+            <h2>Blog List</h2>
+            <nav id="blog_list">
+              <ul>
+                <li>%bloggList%</li>
+              </ul>
+            </nav>
         </header>
 
         <hr>
@@ -37,8 +44,7 @@
 
             <ul class="nav" id="nav">
                 <li data-id="%id%" data-action = "showOverview">
-                    %Blogg-Name%
-                    %Post-Anzahl%
+                    %bloggName% (<span>%postCount%</span>)
                 </li>
             </ul>
 
