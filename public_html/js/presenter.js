@@ -83,7 +83,16 @@ async function showPostDetail(bid, pid) {
     let comments = await model.getAllCommentsOfPost(state.blogId, state.postId);
     console.log(comments);
 }
+function replace(id, element){
+    let slot = document.getElementById(id);
+    let content = slot.firstElementChild;
+    if(content){
+        content.remove();
+    }
+    if(element){
+        slot.appendChild(element);
+    }
+}
 
 
-
-export { showStartPage, showBlogOverview, showPostDetail };
+export { showStartPage, showBlogOverview, showPostDetail, replace };
