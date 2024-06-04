@@ -82,5 +82,6 @@ function handleClientLoad() {
     button.addEventListener('click', handleAuthClick);
 }
 
+
 // After Loading, handleClientLoad is called
 window.addEventListener("load", handleClientLoad);

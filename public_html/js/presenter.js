@@ -1,6 +1,7 @@
 
 import * as router from './router.js';
 import * as model from './model.js';
+import { BlogOverview, PostOverview } from './view.js';
 
 // Private Variablen und Funktionen
 let state = {};
@@ -16,6 +17,7 @@ function resetState() {
         navSlotUpdate: true,
         selectionUpdate: true,
         commentInfoUpdate: true
+        
     }
 }
 async function updatePage() {
@@ -27,8 +29,11 @@ async function updatePage() {
 }
 let loginPage = function () {
     console.log("Presenter: Aufruf von loginPage()");
-    if (state.owner !== null)
+    if (state.owner !== null){
         console.log(`Presenter: Nutzer*in ${state.owner} hat sich abgemeldet.`);
+    replace("blog-overview", null);
+    replace("post-detail", null);
+    }
     else
         console.log("Nutzer ist abgemeldet!");
     resetState();
@@ -67,7 +72,9 @@ async function showBlogOverview(bid) {
     state.detail = false;
     let posts = await model.getAllPostsOfBlog(state.blogId);
     console.log(`--------------- Alle Posts des Blogs ${bid} --------------- `);
-    console.log(posts);
+    console.log(posts);    
+    let element = await BlogOverview(posts);
+    replace("blogg_overview", element);
     showPostDetail(bid, posts[1].id);
 }
 
@@ -82,6 +89,8 @@ async function showPostDetail(bid, pid) {
     console.log(`--------------- Alle Comments des Posts ${state.postId}) --------------- `);
     let comments = await model.getAllCommentsOfPost(state.blogId, state.postId);
     console.log(comments);
+    let element = await PostOverview(post, comments);
+    replace("post_detail", element);
 }
 function replace(id, element){
     let slot = document.getElementById(id);

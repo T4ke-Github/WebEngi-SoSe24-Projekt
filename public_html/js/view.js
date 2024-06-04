@@ -33,3 +33,41 @@ function setSelected(ul, abtId) {
     if (li)
         li.classList.add('selected');
 }
+export function BlogOverview(blogData) {
+    // Klonen des Blog-Übersichtstemplates
+    let temp = document.getElementById('blogg_overview').cloneNode(true);
+    temp.removeAttribute("id");
+    let ul = temp.querySelector("ul");
+    let liTemp = ul.firstElementChild;
+    setNavButtons(liTemp);
+    liTemp.remove();
+    let li = liTemp.cloneNode(true);
+    for (let p in blogData) {
+        ul.appendChild(li);
+        setDataInfo(ul, p);
+    }
+    setSelected(temp,blogData[0])
+    return temp;
+}
+export function PostOverview(postData, commentsData){
+    let temp = document.getElementById('post_detail').cloneNode(true);
+    temp.removeAttribute('id');
+   
+   if (commentsData) {
+        let CommentTemp = document.getElementById('blog_comments').cloneNode(true);
+        CommentTemp.removeAttribute('id')
+        let ul = CommentTemp.querySelector("ul");
+        let liTemp = ul.firstElementChild;
+        liTemp.remove();
+        let li = liTemp.cloneNode(true);
+        for(let x in commentsData){
+            ul.appendChild(li);
+            setDataInfo(li, x);
+        }
+        temp.appendChild(CommentTemp);
+   } else {
+    console.log("No Comment Found!")
+   }
+   setDataInfo(temp, postData)
+   return temp;
+}

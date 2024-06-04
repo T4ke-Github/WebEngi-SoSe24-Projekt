@@ -40,10 +40,6 @@ function Blog(blog_id, blogName, post_count, creation_date, last_modified_date, 
   this.google_url = google_url;
   }
 
-// test Blog constructor
-let blogTest = new Blog(1, "Mein Blog", 10, new Date(), new Date(), "https://meinblog.de");
-console.log(blogTest);
-
 function Post(post_id, blog_id, title, creation_date, last_modified_date, content, comment_count) {
     this.post_id = post_id;
     this.blog_id = blog_id;
@@ -201,6 +197,9 @@ async function deletePost(bid, pid) {
 }
 
 export {
+  Blog,
+  Post,
+  Comment,
   setLoggedIn,
   isLoggedIn,
   getSelf,
