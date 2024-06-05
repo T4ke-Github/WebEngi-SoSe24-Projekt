@@ -39,12 +39,13 @@ export function BlogOverview(blogData) {
     temp.removeAttribute("id");
     let ul = temp.querySelector("ul");
     let liTemp = ul.firstElementChild;
-    setNavButtons(liTemp);
+    // setNavButtons(liTemp);
     liTemp.remove();
     let li = liTemp.cloneNode(true);
     for (let p in blogData) {
+        blogData[p].setFormatDates();
         ul.appendChild(li);
-        setDataInfo(ul, p);
+        setDataInfo(ul, blogData[p]);
     }
     setSelected(temp,blogData[0])
     return temp;
@@ -52,7 +53,14 @@ export function BlogOverview(blogData) {
 export function PostOverview(postData, commentsData){
     let temp = document.getElementById('post_detail').cloneNode(true);
     temp.removeAttribute('id');
-   
+    let ulx = temp.querySelector("ul");
+    let liTempx = ulx.firstElementChild;
+    liTempx.remove();
+    let lix = liTempx.cloneNode(true);
+    for (let p in postData) {
+        ulx.appendChild(lix);
+        setDataInfo(ulx, postData[p]);
+    }
    if (commentsData) {
         let CommentTemp = document.getElementById('blog_comments').cloneNode(true);
         CommentTemp.removeAttribute('id')
@@ -62,7 +70,7 @@ export function PostOverview(postData, commentsData){
         let li = liTemp.cloneNode(true);
         for(let x in commentsData){
             ul.appendChild(li);
-            setDataInfo(li, x);
+            setDataInfo(li, commentsData[x]);
         }
         temp.appendChild(CommentTemp);
    } else {

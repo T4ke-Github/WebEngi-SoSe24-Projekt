@@ -51,7 +51,7 @@ async function showStartPage() {
         let blogs = await model.getAllBlogs();
         // Beim Betreten der App wird die Id des ersten Blogs im State
         // gesetzt
-        state.blogId = blogs[0].id;
+        state.blogId = blogs[0].blog_id;
         // Setzen der noch fehlenden Elemente der Seite
         await updatePage();
         console.log("--------------- Alle Blogs --------------- ");
@@ -72,9 +72,10 @@ async function showBlogOverview(bid) {
     state.detail = false;
     let posts = await model.getAllPostsOfBlog(state.blogId);
     console.log(`--------------- Alle Posts des Blogs ${bid} --------------- `);
-    console.log(posts);    
+    console.log(posts); 
+    console.log(posts[0].releaseDate)
     let element = await BlogOverview(posts);
-    replace("blogg_overview", element);
+    replace("main-content_slot", element);
     showPostDetail(bid, posts[1].id);
 }
 
@@ -90,7 +91,7 @@ async function showPostDetail(bid, pid) {
     let comments = await model.getAllCommentsOfPost(state.blogId, state.postId);
     console.log(comments);
     let element = await PostOverview(post, comments);
-    replace("post_detail", element);
+    replace("main-content_slot2", element);
 }
 function replace(id, element){
     let slot = document.getElementById(id);

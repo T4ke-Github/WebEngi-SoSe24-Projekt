@@ -31,56 +31,51 @@ function formatDate(date, long) {
 
 }
 
-function Blog(blog_id, blogName, post_count, creation_date, last_modified_date, google_url) {
+function Blog(blog_id, title, posts, releaseDate, updateDate, bloggerURL) {
   this.blog_id = blog_id;
-  this.blogName = blogName;
-  this.post_count = post_count;
-  this.creation_date = creation_date;
-  this.last_modified_date = last_modified_date;
-  this.google_url = google_url;
+  this.title = title;
+  this.posts = posts;
+  this.releaseDate = releaseDate;
+  this.updateDate = updateDate;
+  this.bloggerURL = bloggerURL;
   }
 
-function Post(post_id, blog_id, title, creation_date, last_modified_date, content, comment_count) {
+function Post(post_id, blog_id, postTitle, releaseDate, updateDate, content, comment_count) {
     this.post_id = post_id;
     this.blog_id = blog_id;
-    this.title = title;
-    this.creation_date = creation_date;
-    this.last_modified_date = last_modified_date;
+    this.postTitle = postTitle;
+    this.releaseDate = releaseDate;
+    this.updateDate = updateDate;
     this.content = content;
     this.comment_count = comment_count;
 
 }
 
-// test Post
-// let postTest = new Post(1,2,"Mein Blog", new Date(), new Date(),"adsfgsfh",5);
-// console.log(postTest);
-
-
-function Comment(comment_id, blog_id, post_id, author, creation_date, last_modified_date, content) { 
+function Comment(comment_id, blog_id, post_id, author, releaseDate, updateDate, content) { 
     this.comment_id = comment_id;
     this.blog_id = blog_id;
     this.post_id = post_id;
     this.author = author;
-    this.creation_date = creation_date;
-    this.last_modified_date = last_modified_date;
+    this.releaseDate = releaseDate;
+    this.updateDate = updateDate;
     this.content = content;
   }
   // Setze Methode setFormatDates für den Blog-Prototyp
   Blog.prototype.setFormatDates = function (long) {
-    this.creation_date_formatted = formatDate(this.creation_date, long);
-    this.last_modified_date_formatted = formatDate(this.last_modified_date, long);
+    this.creation_date_formatted = formatDate(this.releaseDate, long);
+    this.updateDate_formatted = formatDate(this.updateDate, long);
   };
   
   // Setze Methode setFormatDates für den Post-Prototyp
   Post.prototype.setFormatDates = function (long) {
-    this.creation_date_formatted = formatDate(this.creation_date, long);
-    this.last_modified_date_formatted = formatDate(this.last_modified_date, long);
+    this.creation_date_formatted = formatDate(this.releaseDate, long);
+    this.updateDate_formatted = formatDate(this.updateDate, long);
   };
   
   // Setze Methode setFormatDates für den Comment-Prototyp
   Comment.prototype.setFormatDates = function (long) {
-    this.creation_date_formatted = formatDate(this.creation_date, long);
-    this.last_modified_date_formatted = formatDate(this.last_modified_date, long);
+    this.creation_date_formatted = formatDate(this.releaseDate, long);
+    this.updateDate_formatted = formatDate(this.updateDate, long);
   };
 
 // Öffentliche Schnittstelle von Model
@@ -114,7 +109,19 @@ async function getSelf() {
 async function getAllBlogs() {
   let result = await reqInstance.get(pathGetBlogs);
   let blogs = [];
-  if (result.data.items) blogs = result.data.items;
+  if (result.data.items){
+    for(let x in result.data.items){
+      blogs.push(new Blog(
+        result.data.items[x].id,
+        result.data.items[x].name,
+        result.data.items[x].posts.totalItems,
+        result.data.items[x].published,
+        result.data.items[x].updated,
+        result.data.items[x].url
+      ))
+    }
+  }
+  // if (result.data.items) blogs = result.data.items;
   return blogs;
 }
 // Liefert den Blog mit der Blog-Id bid
@@ -122,6 +129,16 @@ async function getBlog(bid) {
   let path = getPath(bid);
   // Execute the API request.
   let result = await reqInstance.get(path);
+  if(result != null){
+    new Blog(
+      result.blog_id,
+      result.bloggName,
+      result.posts,
+      result.releaseDate,
+      result.updateDate,
+      result.bloggerURL
+    );
+  }
   return result.data;
 }
 // Liefert alle Posts des Blogs mit der Blog-Id bid.
@@ -129,7 +146,19 @@ async function getAllPostsOfBlog(bid) {
   let path = getPath(bid) + "/posts";
   let result = await reqInstance.get(path);
   let posts = [];
-  if (result.data.items) posts = result.data.items;
+  if (result.data.items){
+    for(let y in result.data.items){
+    posts.push(new Post(
+       result.data.items[y].id,
+       result.data.items[y].blog.id,
+       result.data.items[y].title,
+       result.data.items[y].published,
+       result.data.items[y].updated,
+       result.data.items[y].content,
+       result.data.items[y].replies.totalItems,
+    ))
+    }
+  }
   return posts;
 }
 // Liefert den Post mit der Post-Id pid im Blog mit der Blog-Id bid

@@ -26,18 +26,20 @@
 
             <h2>Blog List</h2>
             <nav id="blog_list">
-              <ul>
+              <!-- <ul>
                 <li>%bloggList%</li>
-              </ul>
+              </ul> -->
             </nav>
         </header>
 
         <hr>
         <main id="main-content_slot">
-            Test Page
         </main>
         <hr>
-
+        <main id="main-content_slot2">
+            
+        </main>
+        <hr>
         <footer>Impressum</footer>
 
         <div id="templates" hidden>
@@ -49,12 +51,15 @@
             </ul>
 
             <div id="info_box">
-                <h2>Blogg Info</h2>
-                <p>Title: %title%</p>
-                <p>Posts: %posts%</p>
-                <p>Erscheinungsdatum: %releaseDate%</p>
-                <p>Letzte Änderung: %updateDate%</p>
-                <a href="%bloggerURL%">Zur Blog Hompage</a>
+                <ul>
+
+                    <li><h2>Blogg Info</h2></li>
+                    <li1>Title: %title%</li1>
+                    <li2><p>Posts: %posts%</p></li2> 
+                    <li3><p>Erscheinungsdatum: %releaseDate%</p></li3> 
+                    <li4><p>Letzte Änderung: %updateDate%</p></li4>
+                    <li5><a href="%bloggerURL%">Zur Blog Hompage</a></li5>
+                </ul>
             </div>
 
             <div id="blogg_overview">
@@ -73,11 +78,11 @@
                                     Post löschen 
                                 </button>
                             </nav>
-                            <p>%postName%</p>
+                            <p>%postTitle%</p>
                             <p>%postImage%</p>
-                            <p>Erscheinungsdatum: %releaseDate%</p>
-                            <p>Letzte Änderung: %updateDate%</p>
-                            <p>Kommentare: %comments%</p>
+                            <p>Erscheinungsdatum: %creation_date_formatted%</p>
+                            <p>Letzte Änderung: %updateDate_formatted%</p>
+                            <p>Kommentare: %comment_count%</p>
                         </div>
                     </article>
                 </ul>
@@ -109,7 +114,7 @@
 
                 <hr>
 
-                <h2>Kommentare: %commentNumber%</h2>
+                <h2>Kommentare: %comment_count%</h2>
                 <article id="blog_comments">
                     <nav>
                         <button> <img class="icon" src="/img/garbage.svg" alt="Delete Comment" /></button>
@@ -119,11 +124,8 @@
                         <p>Datum: %commentDate%</p>
                     </div>
                   <div>
-                      <section>%commentContent%</section>
+                      <section>%releaseDate%</section>
                   </div>
-                  <ul>
-                    <li>TEST</li>
-                  </ul>
                 </article>
 
             </div>
